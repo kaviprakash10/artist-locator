@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import axios from "../config/axios";
@@ -141,14 +141,14 @@ const Explore = () => {
                     borderRadius: "16px",
                     background:
                       selectedCoords &&
-                      selectedCoords[0] === ev.latitude &&
-                      selectedCoords[1] === ev.longitude
+                        selectedCoords[0] === ev.latitude &&
+                        selectedCoords[1] === ev.longitude
                         ? "rgba(129, 140, 248, 0.1)"
                         : "rgba(255,255,255,0.03)",
                     border:
                       selectedCoords &&
-                      selectedCoords[0] === ev.latitude &&
-                      selectedCoords[1] === ev.longitude
+                        selectedCoords[0] === ev.latitude &&
+                        selectedCoords[1] === ev.longitude
                         ? "1px solid rgba(129, 140, 248, 0.5)"
                         : "1px solid rgba(179, 204, 189, 0.1)",
                     cursor: ev.latitude && ev.longitude ? "pointer" : "default",

@@ -18,10 +18,18 @@ const FanPanel = () => {
     const fetchArtists = async () => {
       try {
         const response = await axios.get("/artists");
-        setArtists(response.data);
+        const data = response.data;
+        const artistList = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.artists)
+            ? data.artists
+            : [];
+
+        setArtists(artistList);
         setLoading(false);
       } catch (err) {
         console.error("Failed to fetch artists:", err);
+        setArtists([]);
         setLoading(false);
       }
     };
@@ -58,10 +66,11 @@ const FanPanel = () => {
   }
 
   // Pagination Logic
-  const totalPages = Math.ceil(artists.length / artistsPerPage);
+  const artistArray = Array.isArray(artists) ? artists : [];
+  const totalPages = Math.ceil(artistArray.length / artistsPerPage);
   const indexOfLastArtist = currentPage * artistsPerPage;
   const indexOfFirstArtist = indexOfLastArtist - artistsPerPage;
-  const currentArtists = artists.slice(indexOfFirstArtist, indexOfLastArtist);
+  const currentArtists = artistArray.slice(indexOfFirstArtist, indexOfLastArtist);
 
   return (
     <div className="container" style={{ paddingBottom: "4rem" }}>
@@ -473,7 +482,7 @@ const FanPanel = () => {
                                   } catch (err) {
                                     alert(
                                       err.response?.data?.error ||
-                                        "Booking failed",
+                                      "Booking failed",
                                     );
                                   }
                                 }
@@ -507,15 +516,15 @@ const FanPanel = () => {
                       ))}
                     {artistEvents.filter((e) => e.status === "UPCOMING")
                       .length === 0 && (
-                      <p
-                        style={{
-                          color: "var(--text-muted)",
-                          fontStyle: "italic",
-                        }}
-                      >
-                        No upcoming rituals scheduled.
-                      </p>
-                    )}
+                        <p
+                          style={{
+                            color: "var(--text-muted)",
+                            fontStyle: "italic",
+                          }}
+                        >
+                          No upcoming rituals scheduled.
+                        </p>
+                      )}
                   </div>
                 ) : (
                   <p

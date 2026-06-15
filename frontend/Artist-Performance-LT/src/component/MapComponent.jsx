@@ -16,7 +16,6 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// Helper component to re-center map when coordinates change
 const RecenterMap = ({ lat, lng }) => {
   const map = useMap();
   useEffect(() => {

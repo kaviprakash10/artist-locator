@@ -9,7 +9,6 @@ import Register from "./component/Register";
 import Login from "./component/Login";
 import AdminPanel from "./component/AdminPanel";
 import FanPanel from "./component/FanPanel";
-
 import Explore from "./component/Explore";
 import "./App.css";
 
